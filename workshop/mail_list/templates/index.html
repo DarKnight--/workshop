@@ -17,11 +17,11 @@
               <div class="panel-heading">
                 <h4 class="panel-title">
                   <a data-toggle="collapse" data-parent="#submit-accordion" href="#accordion-one">
-                      What is CODE42DAY ???
+                      What is CODE42DAY ??
                   </a>
                 </h4>
               </div>
-              <div id="accordion-one" class="panel-collapse collapse in">
+              <div id="accordion-one" class="panel-collapse collapse {% if not form.errors %} in {% endif %}">
                 <div class="panel-body">
                     CODE42DAY is a development side coding challenge. It is platform and programming language independent.
                     Yes, you can code in any language you are confortable and work for any platform(Windows/Linux/Android
@@ -33,7 +33,7 @@
               <div class="panel-heading">
                 <h4 class="panel-title">
                   <a data-toggle="collapse" data-parent="#submit-accordion" href="#accordion-three">
-                    How to begin ???
+                    How to begin ??
                   </a>
                 </h4>
               </div>
@@ -44,10 +44,12 @@
                     If you are not comfortable in programming yet, work on it in Dushehrraa and Winter vacations. Read
                     about the technology taught in workshop and do work on further reading section provided in PPTs. <br>
                     <h5><b>Note: The concept taught in workshop does not depend on programming language, if you have no
-                        knowledge of programming you can still excel in the workshop.</b></h5><br>
+                        knowledge of programming you can still excel in the workshop.</b></h5>
                     If you have experience in programming sharp your skills by creating simple code script which solves
                     your daily problems you feel like could be coded. Think of an idea to work on for the event and discuss
                     with us and start coding.<br>
+                    If you are unable to get any new idea, you can take on an existing open-source project and add a new
+                    desired functionality. <br>
                     <b> Feel free to contact us for any related problems you face through e-mail, whatsapp or facebook.</b>
                 </div>
               </div>
@@ -85,14 +87,12 @@
               <div id="accordion-four" class="panel-collapse collapse">
                 <div class="panel-body">
                     <ul>
-                        <li>It is a team contest, hence we will check team collaboration using 'Git'.</li>
-                        <li>Programming skills.</li>
+                        <li>PPTs of workshop I <a href="/static/slidesfortheworkshopofcode42dayonlanandnetworking.zip"> Link </a></li>
+                        <li>Gendu <a href="/static/code42day.zip"> link </a></li>
                         <li>Use of database or caching.</li>
                         <li>Use of APIs is a bonus.</li>
                         <li>Number of functionality available</li>
                     </ul>
-                    <h5> A separate prize for best fist year team* :)</h5>
-                    <h4><b> There will be no marking on Graphical User Interface(GUI)</b></h4>
                 </div>
               </div>
             </div>
@@ -100,21 +100,91 @@
               <div class="panel-heading">
                 <h4 class="panel-title">
                   <a data-toggle="collapse" data-parent="#submit-accordion" href="#accordion-five">
-                    Contact Info:
+                    Your Contact Info:
                   </a>
                 </h4>
               </div>
-              <div id="accordion-five" class="panel-collapse collapse">
+              <div id="accordion-five" class="panel-collapse {% if not form.errors %} collapse {% endif %}">
                 <div class="panel-body">
-                    <ul>
-                        <li>It is a team contest, hence we will check team collaboration using 'Git'.</li>
-                        <li>Programming skills.</li>
-                        <li>Use of database or caching.</li>
-                        <li>Use of APIs is a bonus.</li>
-                        <li>Number of functionality available</li>
-                    </ul>
-                    <h5> A separate prize for best fist year team* :)</h5>
-                    <h4><b> There will be no marking on Graphical User Interface(GUI)</b></h4>
+                    <form class="form-horizontal" method="post" >
+                        {% csrf_token %}
+                        {{ form.email.errors }}
+                        {{ form.language.errors }}
+                        <div class="form-group">
+                            <label for="{{ form.name.id_for_label }}" class="control-label col-xs-2">{{ form.name.label }}</label>
+                            <div class="col-lg-4 col-xs-10 {% if form.name.errors %} alert alert-danger {% endif %}">
+                                {{ form.name }}
+                            </div>
+                            <label for="{{ form.email.id_for_label }}" class="control-label col-xs-2">{{ form.email.label }}</label>
+                            <div class="col-lg-4 col-xs-10 {% if form.email.errors %} alert alert-danger {% endif %}">
+                                {{ form.email }}
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label for="{{ form.number.id_for_label }}" class="control-label col-xs-2">{{ form.number.label }}</label>
+                            <div class="col-xs-10 col-lg-4 {% if form.number.errors %} alert alert-danger {% endif %}">
+                                {{ form.number }}
+                            </div>
+                            <label for="{{ form.other_number.id_for_label }}other_number" class="control-label col-xs-2">{{ form.other_number.label }}</label>
+                            <div class="col-xs-10 col-lg-4 {% if form.other_number.errors %} alert alert-danger {% endif %}">
+                                {{ form.other_number }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="language" class="control-label col-xs-2">Preferred Language:</label>
+                            <div class="col-xs-10 col-md-4 {% if form.language.errors %} alert alert-danger {% endif %}">
+                                {{ form.language }}
+{#                                    {% for lang in form.language %}#}
+{#                                    <label class="radio-inline"  for="{{ lang.id_for_label }}">#}
+{#                                        <input type="radio" name="language" id="{{ lang.id_for_label }}" >{{ lang.choice_label }}#}
+{#                                    </label>#}
+{#                                    {% endfor %}#}
+                            </div>
+                            <label for="platform" class="control-label col-xs-2">Preferred platform:</label>
+                            <div class="col-xs-10 col-md-4">
+                                {{ form.platform }}
+{#                                {% for plat in form.platform %}#}
+{#                                    <label class="radio-inline"  for="{{ plat.id_for_label }}">#}
+{#                                        <input type="radio" name="platform" id="{{ plat.id_for_label }}" value="{{ plat.value }}">#}
+{#                                        {{ plat.choice_label }}#}
+{#                                    </label>#}
+{#                                {% endfor %}#}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-offset-2 col-xs-10">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#submit-accordion" href="#accordion-six">
+                    Coordinators
+                  </a>
+                </h4>
+              </div>
+              <div id="accordion-six" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="col-md-4">
+                        <h5 align="center"> Amit Gupta</h5>
+                        <h5 align="center"> 8604-881-819</h5>
+                        <h5 align="center"> amit.gupta.ece13@iitbhu.ac.in</h5>
+                    </div>
+                    <div class="col-md-4">
+                        <h5 align="center"> Lehar Jain</h5>
+                        <h5 align="center"> 8960-898-447</h5>
+                        <h5 align="center"> lehar.jain.ece13@iitbhu.ac.in</h5>
+                    </div>
+                    <div class="col-md-4">
+                        <h5 align="center"> Ritesh Kumar</h5>
+                        <h5 align="center"> 8953-839-075</h5>
+                        <h5 align="center"> ritesh.kumar.ece13@iitbhu.ac.in</h5>
+                    </div>
                 </div>
               </div>
             </div>
