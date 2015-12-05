@@ -29,7 +29,7 @@ class Participant(models.Model):
                               error_messages={'invalid':"Please enter valid 10 digit number"})
     other_number = models.IntegerField(blank=True, null=True, validators=[tenDigitContact],
                               error_messages={'invalid':"Please enter valid 10 digit number"})
-    language = models.CharField(choices=LANGUAGE, max_length=10, blank=False,
+    language = models.CharField(choices=LANGUAGE, max_length=10, blank=True,
                                 error_messages={'invalid':"Please choose a language"})
     platform = models.CharField(max_length=5, choices=PLATFORM, blank=True)
 
