@@ -26,3 +26,42 @@ class ContactForm(forms.ModelForm):
             raise forms.ValidationError("The email is already registered")
         else:
             raise forms.ValidationError("e-mail field is mandatory")
+
+
+
+
+class TeamRegistrationForm(forms.ModelForm):
+    class Meta:
+        model = models.Team
+        fields = '__all__'
+        widgets = {
+            'team_name' : forms.TextInput(attrs = {
+                'placeholder' : "Max. 50 characters"
+                }),
+            'email_1' : forms.EmailInput(),
+            'name_1'  :   forms.TextInput(),
+            'number_1': forms.TextInput(),
+            'email_2' : forms.EmailInput(),
+            'name_2'  :   forms.TextInput(),
+            'number_2': forms.TextInput(),
+            'email_3' : forms.EmailInput(),
+            'name_3'  :   forms.TextInput(),
+            'number_3': forms.TextInput(),
+            'email_4' : forms.EmailInput(),
+            'name_4'  :   forms.TextInput(),
+            'number_4': forms.TextInput(),
+            'code_url' : forms.TextInput(attrs = {
+                'placeholder' : ""
+                }),
+        }
+
+    def clean_email(self):
+        data = self.cleaned_data['email_1']
+        if data:
+            try:
+                models.Team.objects.get(email_1=data)
+            except models.Team.DoesNotExist:
+                return data
+            raise forms.ValidationError("The email is already registered")
+        else:
+            raise forms.ValidationError("e-mail field is mandatory")
